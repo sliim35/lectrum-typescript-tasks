@@ -5,9 +5,12 @@
       "esnext",
       "dom"
     ],
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
     "strict": true,
+    "experimentalDecorators": true
   },
   "include": [
-    "homework.ts"
+    "homeworks/**/*"
   ]
 }

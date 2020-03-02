@@ -6,7 +6,7 @@ const defaults: Defaults = {
     errorOnInvalid: false,
     precision: 2,
     pattern: '!#',
-    negativePattern: '-!#'
+    negativePattern: '-!#',
 };
 
 const round = (v: number): number => Math.round(v);
@@ -33,13 +33,15 @@ type Defaults = {
     negativePattern: string;
 };
 
+type Value = number | string | Currency;
+
 type Opts = {
     increment: number;
     useVedic?: boolean;
     groups: RegExp;
 };
 
-type Currency = {
+interface Currency {
     intValue: number;
     value: number;
     _settings: Opts & Defaults;
@@ -54,21 +56,15 @@ type Currency = {
     format(u?: boolean): string;
     toString(): string;
     toJSON(): number;
-};
+}
 
-type Value = number | string | Currency;
-
-type CurrencyConstructor = {
+interface CurrencyConstructor {
     new (value: Value, opts: Opts): Currency;
     (value: Value, opts: Opts): Currency;
     prototype: Currency;
-};
+}
 
-const currency: CurrencyConstructor = (function(
-    this: Currency,
-    value: Value,
-    opts: Opts
-) {
+const currency = (function(this: Currency, value: Value, opts: Opts) {
     let that = this;
 
     if (!(that instanceof currency)) {
@@ -101,7 +97,7 @@ const currency: CurrencyConstructor = (function(
 function parse(
     value: Value,
     opts: Opts & Defaults,
-    useRounding = true
+    useRounding = true,
 ): number {
     let v = 0,
         { decimal, errorOnInvalid, precision: decimals } = opts,
@@ -144,7 +140,7 @@ currency.prototype = {
         let { intValue, _settings, _precision } = this;
         return currency(
             (intValue += parse(number, _settings)) / _precision,
-            _settings
+            _settings,
         );
     },
 
@@ -157,7 +153,7 @@ currency.prototype = {
         let { intValue, _settings, _precision } = this;
         return currency(
             (intValue -= parse(number, _settings)) / _precision,
-            _settings
+            _settings,
         );
     },
 
@@ -170,7 +166,7 @@ currency.prototype = {
         let { intValue, _settings } = this;
         return currency(
             (intValue *= number) / pow(_settings.precision),
-            _settings
+            _settings,
         );
     },
 
@@ -183,7 +179,7 @@ currency.prototype = {
         let { intValue, _settings } = this;
         return currency(
             (intValue /= parse(number, _settings, false)),
-            _settings
+            _settings,
         );
     },
 
@@ -245,7 +241,7 @@ currency.prototype = {
                 symbol,
                 separator,
                 decimal,
-                groups
+                groups,
             } = this._settings,
             values = (this + '').replace(/^-/, '').split('.'),
             dollars = values[0],
@@ -260,7 +256,7 @@ currency.prototype = {
                 '#',
                 `${dollars.replace(groups, '$1' + separator)}${
                     cents ? decimal + cents : ''
-                }`
+                }`,
             );
     },
 
@@ -271,7 +267,7 @@ currency.prototype = {
     toString() {
         let { intValue, _precision, _settings } = this;
         return rounding(intValue / _precision, _settings.increment).toFixed(
-            _settings.precision
+            _settings.precision,
         );
     },
 
@@ -281,7 +277,7 @@ currency.prototype = {
      */
     toJSON() {
         return this.value;
-    }
+    },
 };
 
 export default currency;
