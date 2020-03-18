@@ -5,6 +5,12 @@ import createSagaMiddleware from 'redux-saga';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware as createRouterMiddleware } from 'connected-react-router';
 
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
+    }
+}
+
 export const logger = createLogger({
     duration: true,
     collapsed: true,
@@ -13,10 +19,10 @@ export const logger = createLogger({
             return action.error ? 'firebrick' : 'deepskyblue';
         },
         prevState: () => '#1C5FAF',
-        action:    () => '#149945',
+        action: () => '#149945',
         nextState: () => '#A47104',
-        error:     () => '#ff0005',
-    }
+        error: () => '#ff0005',
+    },
 });
 
 const __DEV__ = process.env.NODE_ENV === 'development';
@@ -27,7 +33,7 @@ const routerMiddleware = createRouterMiddleware(history);
 const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const composeEnhancers = __DEV__ && devtools ? devtools : compose;
 
-const middleware = [ sagaMiddleware, routerMiddleware ];
+const middleware = [sagaMiddleware, routerMiddleware];
 
 if (__DEV__) {
     middleware.push(logger);
