@@ -1,0 +1,29 @@
+.starship {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 15px;
+    min-height: 100vh;
+    background-color: #16161a;
+    color: wheat;
+    user-select: none;
+}
+
+.starship h1 {
+    font-size: 120px;
+}
+
+.starship .description {
+    font-size: 24px;
+    align-self: flex-start;
+    margin-left: 15px;
+}
+
+.starship .description div:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.starship .description div span:first-child {
+    font-weight: 800;
+}

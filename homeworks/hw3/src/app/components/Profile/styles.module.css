@@ -1,0 +1,74 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 15px;
+    min-height: 100vh;
+    background-color: #16161a;
+    color: wheat;
+}
+
+.profile h1 {
+    font-size: 50px;
+}
+
+.profile form {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile form input {
+    background-color: transparent;
+    color: wheat;
+    outline: none;
+    border-width: 2px;
+    border-style: solid;
+    border-color: currentColor;
+    border-radius: 7px;
+    padding: 5px 10px;
+    transition: border-color 0.3s ease;
+}
+
+.profile form input::selection {
+    background-color: cornflowerblue;
+}
+
+.profile form input:focus {
+    border-color: cornflowerblue;
+}
+
+.profile form input:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.profile form button {
+    min-width: 120px;
+    height: 35px;
+    background-color: transparent;
+    color: wheat;
+    outline: 0;
+    border: 2px solid currentColor;
+    border-radius: 7px;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.profile form button:hover {
+    color: cornflowerblue;
+}
+
+.profile form button:not(:last-child) {
+    margin-right: 15px;
+}
+
+.profile.disabled {
+    color: grey;
+    cursor: progress;
+}
+
+.profile.disabled:hover {
+    color: grey;
+}
