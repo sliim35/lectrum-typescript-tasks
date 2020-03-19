@@ -1,5 +1,5 @@
 // Core
-import React from 'react';
+import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { push } from 'connected-react-router';
 
@@ -7,26 +7,20 @@ import { push } from 'connected-react-router';
 import Styles from './styles.module.css';
 import { book } from '../../routes/book';
 
-export const StarshipTile = (props) => {
+// Types
+
+export const StarshipTile: FC = (props) => {
     const dispatch = useDispatch();
 
-    const {
-        name,
-        starship_class,
-        manufacturer,
-        crew
-    } = props;
+    const { name, starship_class, manufacturer, crew } = props;
 
     const _navigateToStarship = () => {
-        const url = `${book.panel}/${name.replace(/ /g,'-').toLowerCase()}`;
+        const url = `${book.panel}/${name.replace(/ /g, '-').toLowerCase()}`;
         dispatch(push(url));
-    }
+    };
 
     return (
-        <section
-            className={Styles.starshipTile}
-            onClick={ _navigateToStarship }
-        >
+        <section className={Styles.starshipTile} onClick={_navigateToStarship}>
             <h1>Ω</h1>
             <div className={Styles.description}>
                 <div>
@@ -60,4 +54,4 @@ export const StarshipTile = (props) => {
             </div>
         </section>
     );
-}
+};

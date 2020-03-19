@@ -1,15 +1,9 @@
 // Core
-import { compose } from 'redux';
+import { Middleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware as createRouterMiddleware } from 'connected-react-router';
-
-declare global {
-    interface Window {
-        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
-    }
-}
 
 export const logger = createLogger({
     duration: true,
@@ -30,13 +24,11 @@ const __DEV__ = process.env.NODE_ENV === 'development';
 const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
 const routerMiddleware = createRouterMiddleware(history);
-const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-const composeEnhancers = __DEV__ && devtools ? devtools : compose;
 
-const middleware = [sagaMiddleware, routerMiddleware];
+const middleware: Middleware[] = [sagaMiddleware, routerMiddleware];
 
 if (__DEV__) {
     middleware.push(logger);
 }
 
-export { history, composeEnhancers, middleware, sagaMiddleware };
+export { history, middleware, sagaMiddleware };

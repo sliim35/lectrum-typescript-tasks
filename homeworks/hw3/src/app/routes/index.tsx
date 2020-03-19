@@ -20,7 +20,7 @@ export const Routes: FC = () => {
             <Switch>
                 <Route exact component={Bridge} path={book.root} />
                 <Route exact component={Panel} path={book.panel} />
-                <Route exact component={Starship} path={book.starship} />
+                <Route exact component={Starship as FC} path={book.starship} />
                 <Route exact component={Profile} path={book.profile} />
                 <Route
                     exact
