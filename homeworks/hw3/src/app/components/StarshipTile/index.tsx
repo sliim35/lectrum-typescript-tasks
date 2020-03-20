@@ -8,8 +8,9 @@ import Styles from './styles.module.css';
 import { book } from '../../routes/book';
 
 // Types
+import * as feedTypes from '../../bus/feed/types';
 
-export const StarshipTile: FC = (props) => {
+export const StarshipTile: FC<feedTypes.StarshipType> = (props) => {
     const dispatch = useDispatch();
 
     const { name, starship_class, manufacturer, crew } = props;

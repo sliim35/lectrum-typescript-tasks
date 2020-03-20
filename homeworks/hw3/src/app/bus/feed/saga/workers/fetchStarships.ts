@@ -2,8 +2,11 @@
 import { put, call, delay } from 'redux-saga/effects';
 
 // Instruments
-import { SagaIterator } from '@redux-saga/core';
 import { feedActions } from '../../actions';
+
+// Types
+import { SagaIterator } from '@redux-saga/core';
+import * as types from '../../types';
 
 export function* fetchStarships(): SagaIterator {
     try {
@@ -11,7 +14,10 @@ export function* fetchStarships(): SagaIterator {
 
         const response = yield call(fetch, 'https://swapi.co/api/starships');
 
-        const { results } = yield call([response, response.json]);
+        const { results }: types.ResponseWithStarhipsType = yield call([
+            response,
+            response.json,
+        ]);
 
         if (response.status !== 200) {
             throw new Error(`We can't receive starships 😢`);

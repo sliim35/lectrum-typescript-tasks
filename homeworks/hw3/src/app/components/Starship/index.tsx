@@ -7,19 +7,22 @@ import { book } from '../../routes/book';
 // Instruments
 import Styles from './styles.module.css';
 
+// Types
+import { AppState } from '../../init/rootReducer';
+
 export const Starship = () => {
-    const starships = useSelector((state) => state.feed.starships);
+    const starships = useSelector((state: AppState) => state.feed.starships);
     const matchSelector = createMatchSelector({ path: book.starship });
-    const state = useSelector((state) => state);
+    const state = useSelector((state: AppState) => state);
     const match = matchSelector(state);
 
-    if(!match) {
+    if (!match) {
         return false;
     }
 
     const starshipName = match.params.starship;
 
-    if(!starships.length) {
+    if (!starships.length) {
         return false;
     }
 
@@ -27,38 +30,31 @@ export const Starship = () => {
         return starship.name.replace(/ /g, '-').toLowerCase() === starshipName;
     });
 
-    if(!starship) {
+    if (!starship) {
         return false;
     }
 
-    const {
-        name,
-        starship_class,
-        manufacturer,
-        crew
-    } = starship;
+    const { name, starship_class, manufacturer, crew } = starship;
 
     return (
-        <section
-            className = { Styles.starship }
-        >
+        <section className={Styles.starship}>
             <h1>Starship</h1>
-            <div className = { Styles.description }>
+            <div className={Styles.description}>
                 <div>
                     <span>Имя:</span>
-                    <span>&nbsp;{ name }</span>
+                    <span>&nbsp;{name}</span>
                 </div>
                 <div>
                     <span>Класс:</span>
-                    <span>&nbsp;{ starship_class }</span>
+                    <span>&nbsp;{starship_class}</span>
                 </div>
                 <div>
                     <span>Производитель:</span>
-                    <span>&nbsp;{ manufacturer }</span>
+                    <span>&nbsp;{manufacturer}</span>
                 </div>
                 <div>
                     <span>Команда:</span>
-                    <span>&nbsp;{ crew }</span>
+                    <span>&nbsp;{crew}</span>
                 </div>
             </div>
         </section>
