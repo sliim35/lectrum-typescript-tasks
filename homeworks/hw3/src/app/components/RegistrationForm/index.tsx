@@ -1,18 +1,18 @@
 // Core
-import React from 'react';
-import { Field, reduxForm, FieldArray } from 'redux-form';
+import React, { FC } from 'react';
+import { Field, reduxForm, FieldArray, InjectedFormProps } from 'redux-form';
 import { customInput, discounts } from '../Fields';
 import capitalize from 'capitalize';
-import { 
+import {
     required,
     minLength,
     maxLength,
     matchesPassword,
-    asyncValidate
- } from './validation';
+    asyncValidate,
+} from './validation';
 import './styles.css';
 
-const RegistrationComponent = ({ handleSubmit }) => {
+const RegistrationComponent: FC<InjectedFormProps> = ({ handleSubmit }) => {
     return (
         <form onSubmit={handleSubmit}>
             <Field
@@ -61,5 +61,5 @@ const RegistrationComponent = ({ handleSubmit }) => {
 export const RegistrationForm = reduxForm({
     form: 'registration',
     asyncValidate,
-    asyncBlurFields: ['username']
+    asyncBlurFields: ['username'],
 })(RegistrationComponent);

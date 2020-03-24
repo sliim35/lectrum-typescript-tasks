@@ -1,5 +1,5 @@
 // Core
-import React from 'react';
+import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { createMatchSelector } from 'connected-react-router';
 import { book } from '../../routes/book';
@@ -10,20 +10,24 @@ import Styles from './styles.module.css';
 // Types
 import { AppState } from '../../init/rootReducer';
 
-export const Starship = () => {
+type ParamsTypes = {
+    starship: string;
+};
+
+export const Starship: FC = () => {
     const starships = useSelector((state: AppState) => state.feed.starships);
-    const matchSelector = createMatchSelector({ path: book.starship });
+    const matchSelector = createMatchSelector<any, ParamsTypes>(book.starship);
     const state = useSelector((state: AppState) => state);
     const match = matchSelector(state);
 
     if (!match) {
-        return false;
+        return null;
     }
 
     const starshipName = match.params.starship;
 
     if (!starships.length) {
-        return false;
+        return null;
     }
 
     const starship = starships.find((starship) => {
@@ -31,7 +35,7 @@ export const Starship = () => {
     });
 
     if (!starship) {
-        return false;
+        return null;
     }
 
     const { name, starship_class, manufacturer, crew } = starship;
